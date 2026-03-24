@@ -1,0 +1,14 @@
+enabled: true
+
+# Deployment
+replicaCount: 1
+
+image: svtui:latest
+imagePullPolicy: Never
+
+containerPort: 80
+
+# Service
+service:
+  type: ClusterIP
+  port: 81

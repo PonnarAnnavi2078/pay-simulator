@@ -1,0 +1,36 @@
+enabled: true
+
+# Namespace where Filebeat runs
+namespace: kube-system
+
+# Service Account
+serviceAccountName: filebeat-sa
+
+# Image
+image:
+  repository: docker.elastic.co/beats/filebeat
+  tag: "8.3.3"
+  pullPolicy: IfNotPresent
+
+# Security
+privileged: true
+
+# Elasticsearch connection
+elasticsearch:
+  port: 9200
+
+# Kibana connection
+kibana:
+  port: 5601
+
+# Host paths (for logs)
+hostPaths:
+  varlog: /var/log
+  criolog: /var/log/containers
+  varrun: /var/run
+
+# Service (for metrics endpoint)
+service:
+  type: ClusterIP
+  port: 5066
+  targetPort: 5066

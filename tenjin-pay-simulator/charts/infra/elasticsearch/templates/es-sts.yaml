@@ -1,0 +1,49 @@
+{{- if .Values.enabled }}
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-elasticsearch
+  labels:
+    app: elasticsearch
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.httpPort }}
+            - containerPort: {{ .Values.transportPort }}
+          env:
+            - name: discovery.type
+              value: {{ .Values.discoveryType | quote }}
+            - name: xpack.security.enabled
+              value: {{ .Values.xpackSecurityEnabled | quote }}
+            - name: ES_JAVA_OPTS
+              value: {{ .Values.javaOpts | quote }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-elasticsearch
+              mountPath: {{ .Values.mountPath }}
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Release.Name }}-elasticsearch
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.storage }}
+        storageClassName: {{ .Values.storageClassName }}
+
+{{- end }}

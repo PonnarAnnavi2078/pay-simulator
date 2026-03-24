@@ -1,0 +1,18 @@
+{{- if .Values.enabled }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-kibana
+  labels:
+    app: kibana
+
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: kibana
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerPort }}
+
+{{- end }}

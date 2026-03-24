@@ -1,0 +1,48 @@
+
+{{- if .Values.enabled }}
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels:
+    app: postgres
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Release.Name }}-db-service
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-postgres-db
+              mountPath: /var/lib/postgresql/data
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-db-config
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Release.Name }}-postgres-db
+        labels:
+          app: postgres
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.storage }}
+        storageClassName: {{ .Values.storageClassName }}
+
+{{- end }}

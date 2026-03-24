@@ -1,0 +1,53 @@
+# -----------------------
+# Application Services
+# -----------------------
+
+nginx:
+  image: mynginx:latest
+  enabled: true
+
+svt:
+  image: mysvt:latest
+  enabled: true
+
+svtrest:
+  image: mysvtrest:latest
+  enabled: true
+
+svtui:
+  image: mysvtui:latest
+  enabled: true
+
+# -----------------------
+# Infra Services
+# -----------------------
+
+postgres:
+  image: mypostgres:latest
+  enabled: true   
+
+redis:
+  image: myredis:latest
+  enabled: true
+
+elasticsearch:
+  image: myelasticsearch:latest
+  enabled: true
+
+kibana:
+  image: mykibana:latest
+  enabled: true
+
+filebeat:
+  image: myfilebeat:latest
+  enabled: true
+
+# -----------------------
+# Shared Config
+# -----------------------
+
+global:
+  postgres:
+    db: dbase
+    user: postgres
+    password: postgres

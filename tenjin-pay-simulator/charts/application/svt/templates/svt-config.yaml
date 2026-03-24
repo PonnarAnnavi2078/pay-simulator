@@ -1,0 +1,49 @@
+{{- if .Values.enabled }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-svt-config
+  labels:
+    app: svt-simulator
+
+data:
+  server.port: "8081"
+
+  spring.security.user.name: "yethi"
+  spring.security.user.password: "svt"
+
+  spring.datasource.url: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{.Values.global.postgres.db}}"
+  spring.datasource.username: "{{.Values.global.postgres.user}}"
+  spring.datasource.password: "{{.Values.global.postgres.password}}"
+  spring.datasource.driver-class-name: "org.postgresql.Driver"
+
+  spring.jpa.hibernate.ddl-auto: "none"
+  spring.jpa.database-platform: "org.hibernate.dialect.PostgreSQLDialect"
+
+  svtframework.rabbitmqHost: "localhost"
+  svtframework.rabbitmqPort: "5672"
+  svtframework.rabbitmqVhost: "/"
+  svtframework.rabbitmqUsername: "guest"
+  svtframework.rabbitmqPassword: "guest"
+
+  svtframework.activemqHost: "activemq-scheme-merged-v2"
+  svtframework.activemqPort: "61616"
+  svtframework.activemqUsername: "admin"
+  svtframework.activemqPassword: "admin"
+
+  svtframework.restProjectUrl: "http://{{ .Release.Name }}-svtrest:8080/svtrest/v1"
+  svtframework.svtProjectUrl: "http://{{ .Release.Name }}-svt:8080/svt"
+
+  svtframework.elasticUrl: "{{ .Release.Name }}-elasticsearch:9200"
+  svtframework.elasticUsername: "elastic"
+
+  spring.data.redis.host: "{{ .Release.Name }}-redis"
+  spring.data.redis.port: "6379"
+  spring.cache.type: "redis"
+
+  common.schemeId: "[9]"
+  common.interfaceSchemeId: "9"
+  common.interfaces: "[]"
+
+{{- end }}

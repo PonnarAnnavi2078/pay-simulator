@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "svtrest.fullname" . }}-config
+data:
+  server.port: "8082"
+
+  spring.datasource.url: "jdbc:postgresql://{{ .Release.Name }}-postgres:5432/{{.Values.global.postgres.db}}"
+  spring.datasource.username: "{{.Values.global.postgres.user}}"
+  spring.datasource.password: "{{.Values.global.postgres.password}}"
+  spring.datasource.driver-class-name: "org.postgresql.Driver"
+
+  spring.jpa.hibernate.ddl-auto: "update"
+
+  svtrest.jwtSecretKey: "6cd4e368-34ef-46ba-87e6-019ed5557665"
+  svtrest.jwtTokenValidity: "86400000"
+
+  svtrest.svtProjectUrl: "http://{{ .Release.Name }}-svt:8080/svt"
+  svtrest.elasticUrl: "{{ .Release.Name}}-elasticsearch:9200"
+  svtrest.elasticUsername: "elastic"
+
+  spring.mail.host: "smtp.gmail.com"
+  spring.mail.port: "587"
+  spring.mail.username: "tenjinpaysimulator@gmail.com"
+  spring.mail.password: "dcfr ekxu xyid jabc"
+  spring.mail.properties.mail.smtp.auth: "true"
+  spring.mail.properties.mail.smtp.starttls.enable: "true"
+  spring.mail.properties.mail.debug: "true"
+
+  spring.data.redis.host: "{{ .Release.Name }}-redis"
+  spring.data.redis.port: "6379"
+
+  spring.cache.type: "redis"
+  svtrest.redisOtpExpiryInSeconds: "300"
+
+  svtrest.schemeId: "[9]"

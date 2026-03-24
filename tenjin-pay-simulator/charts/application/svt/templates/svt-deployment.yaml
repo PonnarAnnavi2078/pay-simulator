@@ -1,0 +1,32 @@
+{{- if .Values.enabled | default true }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-svt
+  labels:
+    app: svt-simulator
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: svt-simulator
+
+  template:
+    metadata:
+      labels:
+        app: svt-simulator
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-svt-config
+
+{{- end }}

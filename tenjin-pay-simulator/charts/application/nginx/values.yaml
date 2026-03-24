@@ -1,0 +1,15 @@
+enabled: true
+
+# Replica settings
+replicaCount: 1
+
+# Container config
+image: mynginx:latest
+imagePullPolicy: Never
+containerPort: 80
+
+# Service config
+service:
+  type: NodePort
+  port: 80
+  # nodePort: 30007   # optional (only if you want fixed nodePort)

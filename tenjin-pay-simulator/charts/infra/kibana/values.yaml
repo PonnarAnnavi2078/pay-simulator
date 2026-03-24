@@ -1,0 +1,24 @@
+enabled: true
+
+# Deployment
+replicaCount: 1
+
+# Image
+image:
+  repository: docker.elastic.co/kibana/kibana
+  tag: "8.3.3"
+  pullPolicy: IfNotPresent
+
+# Container
+containerPort: 5601
+
+# Service
+service:
+  type: NodePort
+  port: 5601
+  # nodePort: 30007   # optional (uncomment if needed)
+
+# Elasticsearch connection
+elasticsearch:
+  host: "http://{{ .Release.Name }}-elasticsearch-service"
+  port: 9200

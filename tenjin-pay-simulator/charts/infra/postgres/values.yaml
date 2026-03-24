@@ -1,0 +1,26 @@
+enabled: true
+
+# StatefulSet settings
+replicaCount: 1
+containerPort: 5432
+mountPath: /var/lib/postgresql/data
+
+image:
+  repository: postgres
+  tag: "13"
+  pullPolicy: IfNotPresent
+
+# Storage settings
+storage: 5Gi
+storageClassName: standard
+
+postgres:
+  db: dbase
+  user: postgres
+  password: postgres
+  port: 5432
+
+# Service settings
+service:
+  type: NodePort
+  port: 5432

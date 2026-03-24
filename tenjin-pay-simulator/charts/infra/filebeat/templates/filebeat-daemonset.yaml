@@ -1,0 +1,53 @@
+{{- if .Values.enabled }}
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-filebeat
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: filebeat
+
+spec:
+  selector:
+    matchLabels:
+      app: filebeat
+
+  template:
+    metadata:
+      labels:
+        app: filebeat
+    spec:
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      containers:
+        - name: filebeat
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/filebeat/filebeat.yml
+              subPath: filebeat.yml
+            - name: varlog
+              mountPath: /var/log
+            - name: criolog
+              mountPath: /var/log/containers
+            - name: varrun
+              mountPath: /var/run
+          securityContext:
+            privileged: {{ .Values.privileged }}
+
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-filebeat-config   
+        - name: varlog
+          hostPath:
+            path: {{ .Values.hostPaths.varlog }}
+        - name: criolog
+          hostPath:
+            path: {{ .Values.hostPaths.criolog }}
+        - name: varrun
+          hostPath:
+            path: {{ .Values.hostPaths.varrun }}
+
+{{- end }}

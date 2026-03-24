@@ -1,0 +1,18 @@
+enabled: true
+
+# Deployment
+replicaCount: 1
+
+image: svtrest:latest
+imagePullPolicy: Never
+
+containerPort: 8080
+
+# Service
+service:
+  type: ClusterIP
+  port: 8082
+
+# ConfigMap (used in Deployment)
+configMap:
+  enabled: true

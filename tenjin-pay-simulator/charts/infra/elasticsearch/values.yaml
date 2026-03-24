@@ -1,0 +1,28 @@
+enabled: true
+
+# StatefulSet
+replicaCount: 1
+
+# Image
+image:
+  repository: docker.elastic.co/elasticsearch/elasticsearch
+  tag: "8.3.3"
+  pullPolicy: IfNotPresent
+
+# Ports
+httpPort: 9200
+transportPort: 9300
+
+# Environment
+discoveryType: single-node
+xpackSecurityEnabled: "false"
+javaOpts: "-Xms2g -Xmx2g"
+
+# Storage
+mountPath: /usr/share/elasticsearch/data
+storage: 10Gi
+storageClassName: standard
+
+# Service (Headless)
+service:
+  port: 9200

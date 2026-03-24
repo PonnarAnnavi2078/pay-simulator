@@ -1,0 +1,18 @@
+{{- if .Values.enabled }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels:
+    app: postgres
+
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: postgres
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerPort }}
+
+{{- end }}

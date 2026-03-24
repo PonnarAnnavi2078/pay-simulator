@@ -1,0 +1,29 @@
+{{- if .Values.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-svtui
+  labels:
+    app: svtui
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: svtui
+
+  template:
+    metadata:
+      labels:
+        app: svtui
+    spec:
+      containers:
+        - name: svtui
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+
+{{- end }}

@@ -1,0 +1,22 @@
+enabled: true
+
+# StatefulSet
+replicaCount: 1
+
+# Image
+image:
+  repository: redis
+  tag: "7"
+  pullPolicy: IfNotPresent
+
+# Container
+containerPort: 6379
+mountPath: /data
+
+# Storage (PVC)
+storage: 2Gi
+storageClassName: standard
+
+# Service (Headless)
+service:
+  port: 6379
