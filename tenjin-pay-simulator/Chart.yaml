@@ -22,3 +22,41 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
+
+dependencies:
+  - name: elasticsearch
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: kibana
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: filebeat
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: redis
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: postgres
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: svt
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: svtrest
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: svtui
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+
+  - name: nginx
+    version: 0.1.0
+    repository: "https://PonnarAnnavi2078.github.io/pay-simulator"
+    condition: nginx.enabled
