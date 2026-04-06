@@ -1,1 +1,1 @@
-# pay-simulator
+# tenjin-pay-simulator
